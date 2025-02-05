@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class vehicle {
     private int vehicleId;
     private String brand;
-    private int rentalCount; // Добавлено для поддержки getRentalCount
+    private int rentalCount;
     private boolean isAvailable;
     private int vehicleCount;
 
@@ -22,7 +22,6 @@ public class vehicle {
         this.vehicleCount = vehicleCount;
     }
 
-    // Геттеры и сеттеры
     public int getVehicleId() {
         return vehicleId;
     }

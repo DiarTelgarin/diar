@@ -41,7 +41,6 @@ public class truck extends vehicle {
                 }
             }
 
-            // Сохраняем грузовик
             try (PreparedStatement truckStmt = conn.prepareStatement(truckQuery)) {
                 truckStmt.setInt(1, getVehicleId());
                 truckStmt.setInt(2, maxLoad);
@@ -58,7 +57,6 @@ public class truck extends vehicle {
         String vehicleQuery = "SELECT * FROM vehicles WHERE vehicle_id = ?";
         String truckQuery = "SELECT * FROM trucks WHERE vehicle_id = ?";
         try (Connection conn = PostgreSQLJDBC.connect()) {
-            // Извлекаем данные транспорта
             try (PreparedStatement vehicleStmt = conn.prepareStatement(vehicleQuery)) {
                 vehicleStmt.setInt(1, vehicleId);
                 ResultSet vehicleRs = vehicleStmt.executeQuery();
@@ -68,7 +66,6 @@ public class truck extends vehicle {
                     boolean isAvailable = vehicleRs.getBoolean("is_available");
                     int vehicleCount = vehicleRs.getInt("vehicle_count");
 
-                    // Извлекаем данные грузовика
                     try (PreparedStatement truckStmt = conn.prepareStatement(truckQuery)) {
                         truckStmt.setInt(1, vehicleId);
                         ResultSet truckRs = truckStmt.executeQuery();

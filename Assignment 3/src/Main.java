@@ -1,3 +1,4 @@
+import Admin.AdminPanel;
 import User.email;
 import Vehicle.car;
 import Vehicle.motorbike;
@@ -8,6 +9,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the system!");
+        System.out.println("1. Admin Panel");
+        System.out.println("2. Register a new user and add vehicles");
+        System.out.print("Choose an option: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 1) {
+            AdminPanel.showAdminMenu();
+            return;
+        }
 
         try {
             System.out.println("Enter user details:");
@@ -23,6 +37,7 @@ public class Main {
             email user = new email(0, name, surname, userEmail, password);
             user.saveToDatabase();
 
+            // Ввод данных автомобиля
             System.out.println("\nEnter Car details:");
             System.out.print("Brand: ");
             String carBrand = scanner.nextLine();
@@ -34,7 +49,7 @@ public class Main {
             int carSeatCount = scanner.nextInt();
             System.out.print("Vehicle Count: ");
             int carVehicleCount = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Очистка ввода
 
             car car1 = new car(0, carBrand, 0, true, carVehicleCount, carSeatCount, carColor, carFuelType);
             car1.saveToDatabase();

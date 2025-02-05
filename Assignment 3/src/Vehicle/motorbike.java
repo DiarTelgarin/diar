@@ -44,7 +44,6 @@ public class motorbike extends vehicle {
                 }
             }
 
-            // Сохраняем мотоцикл
             try (PreparedStatement motorbikeStmt = conn.prepareStatement(motorbikeQuery)) {
                 motorbikeStmt.setInt(1, getVehicleId());
                 motorbikeStmt.setInt(2, maxSpeed);
@@ -62,7 +61,6 @@ public class motorbike extends vehicle {
         String vehicleQuery = "SELECT * FROM vehicles WHERE vehicle_id = ?";
         String motorbikeQuery = "SELECT * FROM motorbikes WHERE vehicle_id = ?";
         try (Connection conn = PostgreSQLJDBC.connect()) {
-            // Извлекаем данные транспорта
             try (PreparedStatement vehicleStmt = conn.prepareStatement(vehicleQuery)) {
                 vehicleStmt.setInt(1, vehicleId);
                 ResultSet vehicleRs = vehicleStmt.executeQuery();
@@ -72,7 +70,6 @@ public class motorbike extends vehicle {
                     boolean isAvailable = vehicleRs.getBoolean("is_available");
                     int vehicleCount = vehicleRs.getInt("vehicle_count");
 
-                    // Извлекаем данные мотоцикла
                     try (PreparedStatement motorbikeStmt = conn.prepareStatement(motorbikeQuery)) {
                         motorbikeStmt.setInt(1, vehicleId);
                         ResultSet motorbikeRs = motorbikeStmt.executeQuery();

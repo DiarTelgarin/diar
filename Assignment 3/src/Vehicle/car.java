@@ -32,7 +32,6 @@ public class car extends vehicle {
         String vehicleQuery = "INSERT INTO vehicles (brand, rental_count, is_available, vehicle_count) VALUES (?, ?, ?, ?) RETURNING vehicle_id";
         String carQuery = "INSERT INTO cars (vehicle_id, seat_count, color, fuel_type) VALUES (?, ?, ?, ?)";
         try (Connection conn = PostgreSQLJDBC.connect()) {
-            // Сохраняем транспортное средство
             try (PreparedStatement vehicleStmt = conn.prepareStatement(vehicleQuery)) {
                 vehicleStmt.setString(1, getBrand());
                 vehicleStmt.setInt(2, getRentalCount());
@@ -44,7 +43,6 @@ public class car extends vehicle {
                 }
             }
 
-            // Сохраняем автомобиль
             try (PreparedStatement carStmt = conn.prepareStatement(carQuery)) {
                 carStmt.setInt(1, getVehicleId());
                 carStmt.setInt(2, seatCount);

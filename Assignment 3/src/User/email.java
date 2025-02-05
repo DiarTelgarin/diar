@@ -17,6 +17,10 @@ public class email extends user {
         this.password = password;
     }
 
+    public static User.email getAdminFromDatabase(String adminEmail, String adminPassword) {
+        return null;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -26,7 +30,7 @@ public class email extends user {
     }
 
     public void saveToDatabase() {
-        String query = "INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO users (name, surname, email, password, is_admin) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = PostgreSQLJDBC.connect();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, getName());
@@ -69,5 +73,9 @@ public class email extends user {
             throw new Exception("Incorrect password!");
         }
         System.out.println("Login Successful!");
+    }
+
+    public boolean isAdmin() {
+        return false;
     }
 }
