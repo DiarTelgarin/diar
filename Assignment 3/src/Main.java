@@ -34,10 +34,9 @@ public class Main {
             System.out.print("Password: ");
             String password = scanner.nextLine();
 
-            email user = new email(0, name, surname, userEmail, password);
+            email user = new email(0, name, surname, userEmail, password, false);
             user.saveToDatabase();
 
-            // Ввод данных автомобиля
             System.out.println("\nEnter Car details:");
             System.out.print("Brand: ");
             String carBrand = scanner.nextLine();
@@ -49,7 +48,7 @@ public class Main {
             int carSeatCount = scanner.nextInt();
             System.out.print("Vehicle Count: ");
             int carVehicleCount = scanner.nextInt();
-            scanner.nextLine(); // Очистка ввода
+            scanner.nextLine();
 
             car car1 = new car(0, carBrand, 0, true, carVehicleCount, carSeatCount, carColor, carFuelType);
             car1.saveToDatabase();
@@ -86,7 +85,7 @@ public class Main {
 
             System.out.println("\nFetching data from the database...");
 
-            car fetchedCar = (car) car.getFromDatabase(1);
+            car fetchedCar = car.getFromDatabase(1);
             if (fetchedCar != null) {
                 System.out.println("\nFetched Car:");
                 fetchedCar.showVehicleInfo();

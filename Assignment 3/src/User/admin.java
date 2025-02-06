@@ -4,14 +4,14 @@ import Database.PostgreSQLJDBC;
 import java.sql.*;
 
 public class admin extends user {
-    private String admin_name;
-    private String admin_password;
+    private String email;
+    private String password;
     private boolean isAdmin;
 
-    public admin(int userId, String name, String surname, String email, String password) {
+    public admin(int userId, String name, String surname, String email, String password, boolean isAdmin) {
         super(userId, name, surname);
-        this.admin_name = email;
-        this.admin_password = password;
+        this.email = email;
+        this.password = password;
         this.isAdmin = isAdmin;
     }
 
@@ -19,20 +19,23 @@ public class admin extends user {
         return isAdmin;
     }
 
-    public static admin getAdmin(String admin_name, String admin_password) {
-        String query = "SELECT * FROM users WHERE admin_name = ? AND admin_password = ? AND isAdmin = TRUE";
+    public static admin getAdmin(String email, String password) {
+        String query = "SELECT user_id, name, surname, email, password, is_admin FROM users WHERE email = ? AND password = ? AND is_admin = TRUE";
         try (Connection conn = PostgreSQLJDBC.connect();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, admin_name);
-            stmt.setString(2, admin_password);
+
+            stmt.setString(1, email);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 return new admin(
-                        rs.getInt("user_Id"),
+                        rs.getInt("user_id"),
                         rs.getString("name"),
                         rs.getString("surname"),
+                        rs.getString("email"),
                         rs.getString("password"),
-                        rs.getString("isAdmin")
+                        rs.getBoolean("is_admin")
                 );
             }
         } catch (SQLException e) {
@@ -41,5 +44,3 @@ public class admin extends user {
         return null;
     }
 }
-
-

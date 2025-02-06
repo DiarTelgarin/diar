@@ -10,11 +10,12 @@ public class AdminPanel {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter admin email: ");
-        String adminEmail = scanner.nextLine();
+        String adminEmail = scanner.nextLine().trim();
         System.out.print("Enter admin password: ");
-        String adminPassword = scanner.nextLine();
+        String adminPassword = scanner.nextLine().trim();
 
         email admin = email.getAdminFromDatabase(adminEmail, adminPassword);
+
         if (admin == null || !admin.isAdmin()) {
             System.out.println("Access denied! You are not an admin.");
             return;
